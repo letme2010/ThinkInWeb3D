@@ -1,0 +1,102 @@
+<html>
+	<style>
+	body{
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	}
+	.container {
+	width:320px;
+	height:480px;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	border: 1px solid black;
+	float:left;
+	}
+
+	.pic{
+
+	}
+
+	#phone_screen{
+	width:320px;
+	height:480px;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	background-color: black;
+	-webkit-perspective: 1000px;
+	-webkit-perspective-origin: 0 0;
+	}
+	</style>
+	<script type="text/javascript" src="jquery.js"></script>
+	<body>
+		<div class="container">
+			<div id="phone_screen">
+			</div>	
+		</div>
+		<div sytlej="float:right;">
+				<button onclick="onLess();">less</button>
+				<button onclick="onMore();">more</button>
+		</div>
+
+	</body>
+	<script>
+		var imgList = [
+			"16_16_200_200_1392537905023.png",// blue
+			"16_16_150_150_1392537905027.png",// green
+			"16_16_100_100_1392537905029.png",// oragin
+			"16_16_76_19_1392537905030.png"// Hello world!
+		];
+
+		function init(){
+			for (var i = 0, len = imgList.length; i < len; i++) {
+				var _jqImg = $('<img>');
+				var imgName = imgList[i];
+				var ltwh = imgName.split('_');
+
+				_jqImg.attr({
+					"src" : "./img/" + imgName,
+					"id"  : "img_" + imgName.split('.')[0]
+				});
+				_jqImg.addClass("pic");
+				_jqImg.css({
+					"left"  : ltwh[0],
+					"top"   : ltwh[1],
+					"width" : ltwh[2],
+					"height": ltwh[3],
+					"position" : "absolute",
+					"-webkit-transform-origin-z" : (-100 * i) + "px"
+				});
+				$('#phone_screen').append(_jqImg);
+			}
+		}
+
+		var originRotateY = 0;
+
+		function onLess(){
+			for (var i = 0, len = imgList.length; i < len; i++) {
+				var _sSelector = "#img_" + imgList[i].split('.')[0];
+				console.log(_sSelector);
+				var _jqImg = $(_sSelector);
+				console.log(_jqImg[0]);
+				_jqImg.css({
+					"-webkit-transform" : "rotateY(" + (originRotateY-=0.5) + "deg)"
+				});
+			}
+		}
+
+		function onMore(){
+			for (var i = 0, len = imgList.length; i < len; i++) {
+				var _sSelector = "#img_" + imgList[i].split('.')[0];
+				console.log(_sSelector);
+				var _jqImg = $(_sSelector);
+				console.log(_jqImg[0]);
+				_jqImg.css({
+					"-webkit-transform" : "rotateY(" + (originRotateY+=0.5) + "deg)"
+				});
+			}
+		}
+
+		init();		
+
+	</script>
+</html>
